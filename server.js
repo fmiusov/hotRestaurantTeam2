@@ -79,8 +79,19 @@ app.get("/api/tables", (req, res) => {
     return res.json(tables);
 });
 
-app.get("/api/watilist", (req, res) => {
-    return res.json(tables);
+app.get("/api/waitlist", (req, res) => {
+    return res.json(waitlist);
+});
+
+app.post("/api/tables", (req, res) => {
+    let reservation = req.body;
+    if (tables.length === 5) {
+        waitlist.push(reservation);
+        return res.json(false);
+    } else {
+        tables.push(reservation);
+        return res.json(true);
+    }
 });
 
 app.listen(PORT, function () {
