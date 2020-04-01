@@ -34,7 +34,6 @@ app.get("/reserve", (req, res) => {
     return res.sendFile(...buildHtmlSend("reserve"));
 });
 
-app.listen(PORT, function() {
-    console.log(`App listening on https://localhost:${PORT}`);
-  });
-  
+app.listen(PORT, function () {
+    console.log(`App listening on http://localhost:${PORT}`);
+});
