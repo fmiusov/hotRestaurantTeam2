@@ -21,44 +21,44 @@ function buildHtmlSend(pageName) {
 }
 // table info
 // {
-//     name: "John Doe",
-//     email: "john@example.com",
-//     id: "unique-id",
-//     phone: "404-867-5309"
+//     customerName: "John Doe",
+//     customerEmail: "john@example.com",
+//     customerID: "unique-id",
+//     phoneNumber: "404-867-5309"
 // }
 
-const tables = [{
-        name: "John Doe",
-        email: "john@example.com",
-        id: "unique-id",
-        phone: "404-867-5309"
+var tables = [{
+        customerName: "John Doe",
+        customerEmail: "john@example.com",
+        customerID: "unique-id",
+        phoneNumber: "404-867-5309"
     },
     {
-        name: "Jane Doe",
-        email: "jane@example.com",
-        id: "uniquer-id",
-        phone: "770-867-5309"
+        customerName: "Jane Doe",
+        customerEmail: "jane@example.com",
+        customerID: "uniquer-id",
+        phoneNumber: "770-867-5309"
     },
     {
-        name: "James Doe",
-        email: "james@example.com",
-        id: "uniquest-id",
-        phone: "678-867-5309"
+        customerName: "James Doe",
+        customerEmail: "james@example.com",
+        customerID: "uniquest-id",
+        phoneNumber: "678-867-5309"
     },
     {
-        name: "Jessie Doe",
-        email: "jessie@example.com",
-        id: "uniquester-id",
-        phone: "800-867-5309"
+        customerName: "Jessie Doe",
+        customerEmail: "jessie@example.com",
+        customerID: "uniquester-id",
+        phoneNumber: "800-867-5309"
     }
 ]
 
-const waitlist = [
+var waitlist = [
     {
-        name: "Marshal Banana",
-        email: "marshal@example.com",
-        id: "unique-eye-dee",
-        phone: "777-867-5309"
+        customerName: "Marshal Banana",
+        customerEmail: "marshal@example.com",
+        customerID: "unique-eye-dee",
+        phoneNumber: "777-867-5309"
     }
 
 ]
@@ -93,6 +93,16 @@ app.post("/api/tables", (req, res) => {
         return res.json(true);
     }
 });
+
+app.delete("/api/tables/:customerID", (req, res) => {
+    // console.log(req.params);
+    try {
+        tables = tables.filter(table => table.customerID !== req.params.customerID);
+    } catch (err) {
+        return res.status(400).send(err.toString());
+    }
+    return res.status(204).send();
+    });
 
 app.listen(PORT, function () {
     console.log(`App listening on http://localhost:${PORT}`);
