@@ -52,7 +52,7 @@
               <h4>Current Reservations</h4>
             </div>
             <div class="card-body">
-              <ul id="tableList" class="list-group"></ul>
+              <ul id="tables" class="list-group"></ul>
             </div>
           </div>
           <div class="card mt-4">
@@ -60,11 +60,18 @@
               <h4>Current Waiting List</h4>
             </div>
             <div class="card-body">
-              <ul id="waitList" class="list-group"></ul>
+              <ul id="waitlist" class="list-group"></ul>
             </div>
           </div>
         </div>
       </div>
+      <footer class="footer mt-4">
+        <div class="container">
+          <p>Control Panel</p>
+          <p><a href="#" id="clear">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API
+              Wait List</a>
+        </p></div>
+      </footer>
     </div>
 
     <script type="text/javascript">
@@ -78,10 +85,10 @@
             list.append(
               $("<h2>").text("Table #" + (i + 1)),
               $("<hr>"),
-              $("<h2>").text("ID: " + data[i].id),
-              $("<h2>").text("Name: " + data[i].name),
-              $("<h2>").text("Email: " + data[i].email),
-              $("<h2>").text("Phone: " + data[i].phone)
+              $("<h2>").text("ID: " + data[i].customerID),
+              $("<h2>").text("Name: " + data[i].customerName),
+              $("<h2>").text("Email: " + data[i].customerEmail),
+              $("<h2>").text("Phone: " + data[i].phoneNumber)
             );
 
             tables.append(list);
@@ -99,10 +106,10 @@
             list.append(
               $("<h2>").text("Table #" + (i + 1)),
               $("<hr>"),
-              $("<h2>").text("ID: " + data[i].id),
-              $("<h2>").text("Name: " + data[i].name),
-              $("<h2>").text("Email: " + data[i].email),
-              $("<h2>").text("Phone: " + data[i].phone)
+              $("<h2>").text("ID: " + data[i].customerID),
+              $("<h2>").text("Name: " + data[i].customerName),
+              $("<h2>").text("Email: " + data[i].customerEmail),
+              $("<h2>").text("Phone: " + data[i].phoneNumber)
             );
 
             waitlist.append(list);

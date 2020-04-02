@@ -9,7 +9,7 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 function getPathToFile(fileName) {
-    return path.join(__dirname, fileName);
+    return path.join(__dirname, "views/" + fileName);
 }
 
 function buildHtmlSend(pageName) {
