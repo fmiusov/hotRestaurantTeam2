@@ -20,8 +20,10 @@
   },
   "homepage": "https://github.com/fmiusov/hotRestaurantTeam2#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "twilio": "^3.42.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
-  }}
+  }
+}
