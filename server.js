@@ -36,13 +36,14 @@ function addReservation(reservation) {
 function sendTextMessage(phoneNumber, messageBody) {
     if (/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phoneNumber)) {
         phoneNumber = `+1${phoneNumber.match(/\d+/g).join('')}`;
-        console.log(`Sending text message to ${phoneNumber}`);
-        return client.messages
-            .create({
-                body: messageBody,
-                from: '+12029526793',
-                to: phoneNumber
-            }).then(message => console.log(message.sid));
+        console.log(`Sending text message to ${phoneNumber} (not really)`);
+        // return client.messages
+        //     .create({
+        //         body: messageBody,
+        //         from: '+12029526793',
+        //         to: phoneNumber
+        //     }).then(message => console.log(message.sid));
+        return Promise.resolve(true);
     } else {
         return Promise.resolve(false);
     }
