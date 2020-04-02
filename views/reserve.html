@@ -32,12 +32,12 @@
         <h2 class="text-center">Make your reservation</h2>
         <br />
         <div class="text-center">
-          <a href="tables.html">
+          <a href="/tables">
             <button class="btn btn-lg btn-primary">
               <span class="fa fa-list-alt"></span> View Tables
             </button>
           </a>
-          <a href="home.html">
+          <a href="/">
             <button class="btn btn-lg btn-default">
               <span class="fa fa-home"></span>
             </button>
@@ -99,16 +99,16 @@
       $("#submit-btn").on("click", function(event) {
         event.preventDefault();
         var newReservation = {
-          name: $("#reserve-name")
+          customerName: $("#reserve-name")
             .val()
             .trim(),
-          phone: $("#reserve-phone")
+          phoneNumber: $("#reserve-phone")
             .val()
             .trim(),
-          email: $("#reserve-email")
+          customerEmail: $("#reserve-email")
             .val()
             .trim(),
-          uniqueID: $("#reserve-unique-id")
+          customerID: $("#reserve-unique-id")
             .val()
             .trim()
         };
