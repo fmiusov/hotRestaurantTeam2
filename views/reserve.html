@@ -113,7 +113,7 @@
             .trim()
         };
 
-        $.post("api/tables", newReservation).then(function(data) {
+        $.post("/api/tables", newReservation).then(function(data) {
           if (data) {
             alert("Your table has been booked!");
           } else {
