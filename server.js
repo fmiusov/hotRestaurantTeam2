@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require("path");
+const accountSid = 'AC19110670360af432864a8e5d1348bb8d';
+const authToken = '45af608fde8e0976be86127b3c20b05a';
+const client = require('twilio')(accountSid, authToken);
 
 app.use(express.urlencoded({
     extended: true
@@ -19,13 +22,31 @@ function buildHtmlSend(pageName) {
         }
     }];
 }
-// table info
-// {
-//     customerName: "John Doe",
-//     customerEmail: "john@example.com",
-//     customerID: "unique-id",
-//     phoneNumber: "404-867-5309"
-// }
+
+function addToWaitlist(reservation) {
+    waitlist.push(reservation);
+    return sendTextMessage(reservation.phoneNumber, "You have been added to the wait list")
+}
+
+function addReservation(reservation) {
+    tables.push(reservation);
+    return sendTextMessage(reservation.phoneNumber, "Your reservation is confirmed!")
+}
+
+function sendTextMessage(phoneNumber, messageBody) {
+    if (/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phoneNumber)) {
+        phoneNumber = `+1${phoneNumber.match(/\d+/g).join('')}`;
+        console.log(`Sending text message to ${phoneNumber}`);
+        return client.messages
+            .create({
+                body: messageBody,
+                from: '+12029526793',
+                to: phoneNumber
+            }).then(message => console.log(message.sid));
+    } else {
+        return Promise.resolve(false);
+    }
+}
 
 var tables = [{
         customerName: "John Doe",
@@ -53,8 +74,7 @@ var tables = [{
     }
 ]
 
-var waitlist = [
-    {
+var waitlist = [{
         customerName: "Marshal Banana",
         customerEmail: "marshal@example.com",
         customerID: "unique-eye-dee",
@@ -85,12 +105,19 @@ app.get("/api/waitlist", (req, res) => {
 
 app.post("/api/tables", (req, res) => {
     let reservation = req.body;
+    console.log("post: ", reservation);
     if (tables.length === 5) {
-        waitlist.push(reservation);
-        return res.json(false);
+        addToWaitlist(reservation).then(() => {
+            return res.json(false)
+        })
+        // waitlist.push(reservation);
+        // return res.json(false);
     } else {
-        tables.push(reservation);
-        return res.json(true);
+        addReservation(reservation).then(() => {
+            return res.json(true)
+        });
+        // tables.push(reservation);
+        // return res.json(true);
     }
 });
 
@@ -102,7 +129,7 @@ app.delete("/api/tables/:customerID", (req, res) => {
         return res.status(400).send(err.toString());
     }
     return res.status(204).send();
-    });
+});
 
 app.listen(PORT, function () {
     console.log(`App listening on http://localhost:${PORT}`);
