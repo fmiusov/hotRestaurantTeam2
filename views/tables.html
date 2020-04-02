@@ -33,12 +33,12 @@
         <br />
 
         <div class="text-center">
-          <a href="/reserve.html"
+          <a href="/reserve"
             ><button class="btn btn-lg btn-danger">
               <span class="fa fa-fire"></span> Make Reservation
             </button></a
           >
-          <a href="/home.html"
+          <a href="/"
             ><button class="btn btn-lg btn-primary">
               <span class="fa fa-home"></span></button
           ></a>
@@ -66,5 +66,52 @@
         </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+      function tablesQuery(){
+        $.ajax({ url: "/api/tables", method: "GET" }).then(function(data) {
+          console.log(data);
+          for (var i = 0; i < data.length; i++){
+            const tables = $("#tables");
+            const list = $("<li>");
+
+            list.append(
+              $("<h2>").text("Table #" + (i + 1)),
+              $("<hr>"),
+              $("<h2>").text("ID: " + data[i].id),
+              $("<h2>").text("Name: " + data[i].name),
+              $("<h2>").text("Email: " + data[i].email),
+              $("<h2>").text("Phone: " + data[i].phone)
+            );
+
+            tables.append(list);
+          }
+        });
+      }
+
+      function waitlistQuery(){
+        $.ajax({ url: "/api/waitlist", method: "GET" }).then(function(data){
+          console.log(data);
+          for (var i = 0; i < data.length; i++){
+            const waitlist = $("#waitlist");
+            const list = $("<li>");
+
+            list.append(
+              $("<h2>").text("Table #" + (i + 1)),
+              $("<hr>"),
+              $("<h2>").text("ID: " + data[i].id),
+              $("<h2>").text("Name: " + data[i].name),
+              $("<h2>").text("Email: " + data[i].email),
+              $("<h2>").text("Phone: " + data[i].phone)
+            );
+
+            waitlist.append(list);
+          }
+        });
+      }
+
+      tablesQuery();
+      waitlistQuery();
+    </script>
   </body>
 </html>
